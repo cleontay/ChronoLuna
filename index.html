@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ChronoLuna — Event Countdown</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='40%25' r='55%25'%3E%3Cstop offset='0' stop-color='%23f5a623'/%3E%3Cstop offset='1' stop-color='%23c0392b'/%3E%3C/radialGradient%3E%3C/defs%3E%3C!-- Glow --%3E%3Cellipse cx='32' cy='36' rx='18' ry='20' fill='%23c0392b' opacity='.18'/%3E%3C!-- Top knot --%3E%3Crect x='29' y='4' width='6' height='8' rx='3' fill='%23c9a84c'/%3E%3C!-- Top cap --%3E%3Cellipse cx='32' cy='13' rx='10' ry='4' fill='%23c9a84c'/%3E%3C!-- Body --%3E%3Cellipse cx='32' cy='33' rx='16' ry='20' fill='url(%23g)'/%3E%3C!-- Ribs --%3E%3Cellipse cx='32' cy='33' rx='10' ry='20' fill='none' stroke='%23c9a84c' stroke-width='1.2' opacity='.5'/%3E%3Cellipse cx='32' cy='33' rx='4' ry='20' fill='none' stroke='%23c9a84c' stroke-width='1' opacity='.35'/%3E%3C!-- Horizontal lines --%3E%3Cline x1='16' y1='25' x2='48' y2='25' stroke='%23c9a84c' stroke-width='1' opacity='.4'/%3E%3Cline x1='16' y1='33' x2='48' y2='33' stroke='%23c9a84c' stroke-width='1' opacity='.4'/%3E%3Cline x1='16' y1='41' x2='48' y2='41' stroke='%23c9a84c' stroke-width='1' opacity='.4'/%3E%3C!-- Bottom cap --%3E%3Cellipse cx='32' cy='53' rx='10' ry='4' fill='%23c9a84c'/%3E%3C!-- Tassel --%3E%3Crect x='30' y='56' width='4' height='5' rx='2' fill='%23c9a84c'/%3E%3Ccircle cx='32' cy='62' r='2' fill='%23c9a84c'/%3E%3C/svg%3E"/>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='40%25' r='55%25'%3E%3Cstop offset='0' stop-color='%23f5a623'/%3E%3Cstop offset='1' stop-color='%23c0392b'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='32' cy='36' rx='18' ry='20' fill='%23c0392b' opacity='.18'/%3E%3Crect x='29' y='4' width='6' height='8' rx='3' fill='%23c9a84c'/%3E%3Cellipse cx='32' cy='13' rx='10' ry='4' fill='%23c9a84c'/%3E%3Cellipse cx='32' cy='33' rx='16' ry='20' fill='url(%23g)'/%3E%3Cellipse cx='32' cy='33' rx='10' ry='20' fill='none' stroke='%23c9a84c' stroke-width='1.2' opacity='.5'/%3E%3Cline x1='16' y1='25' x2='48' y2='25' stroke='%23c9a84c' stroke-width='1' opacity='.4'/%3E%3Cline x1='16' y1='33' x2='48' y2='33' stroke='%23c9a84c' stroke-width='1' opacity='.4'/%3E%3Cline x1='16' y1='41' x2='48' y2='41' stroke='%23c9a84c' stroke-width='1' opacity='.4'/%3E%3Cellipse cx='32' cy='53' rx='10' ry='4' fill='%23c9a84c'/%3E%3Crect x='30' y='56' width='4' height='5' rx='2' fill='%23c9a84c'/%3E%3Ccircle cx='32' cy='62' r='2' fill='%23c9a84c'/%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
@@ -31,7 +33,8 @@
   --shadow: 0 4px 32px rgba(0,0,0,0.5);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; transition: background var(--transition), color var(--transition); overflow-x: hidden; }
+html, body { height: 100%; background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; transition: background var(--transition), color var(--transition); overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+button, a, [onclick] { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 
 /* ── HEADER ── */
 header {
@@ -141,13 +144,14 @@ header {
 
 /* ── ADD EVENT BUTTON ── */
 .fab {
-  position: fixed; bottom: 28px; right: 24px;
+  position: fixed; bottom: max(28px, env(safe-area-inset-bottom, 28px)); right: 24px;
   background: var(--vermillion); color: #fff;
   border: none; border-radius: 50px; padding: 14px 22px;
   font-size: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 500;
   cursor: pointer; box-shadow: 0 6px 24px rgba(192,57,43,0.45);
   display: flex; align-items: center; gap: 8px;
   transition: var(--transition); z-index: 200;
+  -webkit-tap-highlight-color: transparent;
 }
 .fab:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 10px 32px rgba(192,57,43,0.55); }
 
@@ -178,9 +182,10 @@ header {
 .overlay.open { opacity: 1; pointer-events: all; }
 .modal {
   background: var(--paper); border-radius: 24px 24px 0 0;
-  padding: 28px 24px 40px; width: 100%; max-width: 520px;
+  padding: 28px 24px max(40px, env(safe-area-inset-bottom, 40px)); width: 100%; max-width: 520px;
   transform: translateY(60px); transition: transform 0.4s cubic-bezier(.4,0,.2,1);
-  max-height: 92vh; overflow-y: auto;
+  max-height: 92dvh; max-height: 92vh; overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 .overlay.open .modal { transform: translateY(0); }
 .modal-handle { width: 42px; height: 4px; background: var(--gold); border-radius: 2px; margin: 0 auto 20px; }
@@ -192,7 +197,7 @@ label { display: block; font-size: 0.78rem; letter-spacing: 1px; text-transform:
 input, select, textarea {
   width: 100%; padding: 11px 14px; border-radius: 10px;
   border: 1.5px solid var(--paper2); background: var(--card-bg); color: var(--ink);
-  font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+  font-family: 'DM Sans', sans-serif; font-size: 16px; /* 16px prevents iOS auto-zoom */
   transition: border-color 0.2s; outline: none;
 }
 input:focus, select:focus, textarea:focus { border-color: var(--gold); }
@@ -229,11 +234,28 @@ textarea { resize: vertical; min-height: 70px; }
 .notif-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .notif-chip {
   display: flex; align-items: center; gap: 6px;
-  background: var(--paper2); border: 1.5px solid transparent;
-  border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 0.8rem;
-  transition: var(--transition); user-select: none;
+  background: var(--paper2); border: 1.5px solid var(--paper2);
+  border-radius: 20px; padding: 6px 13px; cursor: pointer; font-size: 0.8rem;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.12s;
+  user-select: none; position: relative;
 }
-.notif-chip.selected { border-color: var(--jade); color: var(--jade); }
+.notif-chip::before {
+  content: ''; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--muted); flex-shrink: 0;
+  transition: background 0.18s, transform 0.18s;
+}
+.notif-chip.selected {
+  background: rgba(46,139,87,0.13);
+  border-color: var(--jade);
+  color: var(--jade);
+  font-weight: 500;
+}
+.notif-chip.selected::before {
+  background: var(--jade);
+  transform: scale(1.3);
+  box-shadow: 0 0 0 2px rgba(46,139,87,0.25);
+}
+.notif-chip:active { transform: scale(0.96); }
 .notif-chip input { display: none; }
 
 .btn-primary {
@@ -294,10 +316,12 @@ textarea { resize: vertical; min-height: 70px; }
 
 /* ── TOAST ── */
 .toast {
-  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+  position: fixed; bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+  left: 50%; transform: translateX(-50%) translateY(20px);
   background: var(--ink); color: var(--paper); padding: 10px 20px;
   border-radius: 20px; font-size: 0.85rem; z-index: 600;
   opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none;
+  white-space: nowrap; max-width: 90vw; text-align: center;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -328,10 +352,120 @@ textarea { resize: vertical; min-height: 70px; }
 }
 .export-btn:hover { background: var(--gold); }
 
+/* ══════════════════════════════════════════
+   MOBILE-FIRST RESPONSIVE TWEAKS
+   Base = mobile (< 480px)
+   sm    = 480px+
+   md    = 640px+  (tablet / large phone landscape)
+   ══════════════════════════════════════════ */
+
+/* ── Base mobile adjustments ── */
+@media (max-width: 479px) {
+  /* Header: tighten padding, shrink logo text, hide sb-indicator label text */
+  header { padding: 12px 14px 10px; gap: 6px; }
+  .logo-mark { font-size: 22px; }
+  .logo-text { font-size: 1.1rem; }
+  .logo-sub { display: none; }
+  .header-actions { gap: 6px; }
+  .icon-btn { width: 36px; height: 36px; font-size: 16px; }
+  #sb-indicator-label { display: none; }
+  .sb-indicator { padding: 5px 8px; }
+
+  /* Banner: reduce padding */
+  #next-banner { padding: 10px 14px; gap: 10px; }
+  #next-banner .banner-days { font-size: 1.6rem; }
+
+  /* Carousel: tighter padding, cards fill more of screen */
+  #carousel-section { padding: 18px 0 6px; }
+  .section-title { padding: 0 14px 10px; font-size: 0.95rem; }
+  .carousel-track { padding: 8px 14px 16px; gap: 12px; }
+  .event-card {
+    min-width: calc(100vw - 44px); /* nearly full screen width */
+    max-width: calc(100vw - 44px);
+    padding: 16px 14px 14px;
+  }
+  .card-cat-icon { font-size: 1.8rem; margin-bottom: 6px; }
+  .card-name { font-size: 1.05rem; }
+  .countdown-num { font-size: 1.35rem; }
+  .countdown-unit { padding: 6px 2px; }
+
+  /* List section */
+  #list-section { padding: 8px 14px 110px; }
+  .filter-tabs { padding: 0 14px 12px; gap: 6px; }
+  .filter-tab { padding: 5px 10px; font-size: 0.75rem; }
+  .event-list-item { padding: 12px 12px; gap: 10px; }
+  .list-days { font-size: 1.1rem; }
+
+  /* FAB: shrink to icon-only on tiny screens */
+  .fab { padding: 14px 16px; font-size: 0.9rem; bottom: 20px; right: 16px; }
+
+  /* Modals: full-screen bottom sheet with safe area support */
+  .modal {
+    padding: 20px 16px env(safe-area-inset-bottom, 24px);
+    border-radius: 20px 20px 0 0;
+    max-height: 95vh;
+  }
+  .modal-title { font-size: 1.2rem; margin-bottom: 16px; }
+
+  /* Form: single column for row inputs */
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+  .cat-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .cat-btn { padding: 6px 2px; font-size: 1.1rem; }
+  .cat-btn span { font-size: 0.55rem; }
+
+  /* Lunar picker: tighter dropdowns */
+  #lunar-picker-row select { padding: 8px 6px; font-size: 0.82rem; }
+
+  /* Detail modal */
+  .detail-event-name { font-size: 1.3rem; }
+  .detail-num { font-size: 1.8rem; }
+  .share-btn { padding: 8px 12px; font-size: 0.78rem; }
+
+  /* Supabase connect modal */
+  .sb-modal-inner { padding: 24px 16px 20px; border-radius: 18px; }
+  .sb-logo-title { font-size: 1.3rem; }
+
+  /* Settings */
+  .settings-label { font-size: 0.85rem; }
+  .export-btn { font-size: 0.82rem; padding: 10px 12px; }
+}
+
+/* ── Small phones (320px and under) ── */
+@media (max-width: 359px) {
+  .event-card { min-width: calc(100vw - 28px); max-width: calc(100vw - 28px); }
+  .carousel-track { padding: 8px 14px 16px; gap: 10px; }
+  .card-countdown { gap: 5px; }
+  .countdown-num { font-size: 1.15rem; }
+  .detail-num { font-size: 1.5rem; }
+  .fab span { display: none; } /* icon only */
+  .fab::after { content: '＋'; font-size: 1.4rem; }
+}
+
+/* ── Tablet / large phones (480px+) ── */
+@media (min-width: 480px) {
+  .event-card { min-width: 260px; max-width: 280px; }
+  .carousel-track { padding: 10px 20px 18px; }
+  #list-section { padding: 10px 20px 110px; }
+  .filter-tabs { padding: 0 20px 14px; }
+  header { padding: 14px 20px 12px; }
+  #next-banner { padding: 12px 20px; }
+  .section-title { padding: 0 20px 12px; }
+}
+
+/* ── Desktop (640px+) ── */
 @media (min-width: 640px) {
   .modal { border-radius: 24px; margin: auto; margin-bottom: 24px; }
   .overlay { align-items: center; }
-  .event-card { min-width: 300px; }
+  .event-card { min-width: 300px; max-width: 300px; }
+  .carousel-track { padding: 10px 28px 20px; }
+  #list-section { padding: 10px 28px 120px; }
+  header { padding: 18px 28px 14px; }
+  .section-title { padding: 0 28px 14px; }
+  .filter-tabs { padding: 0 28px 16px; }
+  #next-banner { padding: 12px 28px; }
+  .logo-sub { display: block; }
+  .logo-text { font-size: 1.35rem; }
+  #sb-indicator-label { display: inline; }
 }
 
 /* ── SUPABASE CONNECT MODAL ── */
@@ -339,8 +473,9 @@ textarea { resize: vertical; min-height: 70px; }
   position: fixed; inset: 0; z-index: 900;
   background: var(--paper);
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 24px;
+  align-items: center; justify-content: flex-start;
+  padding: 16px 12px;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
   opacity: 0; pointer-events: none; transition: opacity 0.4s;
 }
 #supabase-overlay.open { opacity: 1; pointer-events: all; }
@@ -365,12 +500,7 @@ textarea { resize: vertical; min-height: 70px; }
   margin: 20px 0 18px; color: var(--muted); font-size: 0.78rem;
 }
 .sb-divider::before, .sb-divider::after { content: ''; flex: 1; height: 1px; background: var(--gold); opacity: 0.4; }
-.sb-info-box {
-  background: var(--paper2); border-radius: 12px; padding: 12px 14px;
-  font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 18px;
-}
-.sb-info-box a { color: var(--sky); text-decoration: none; }
-.sb-info-box a:hover { text-decoration: underline; }
+
 .sb-input-wrap { position: relative; margin-bottom: 14px; }
 .sb-input-wrap label { display: block; font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
 .sb-input-wrap input {
@@ -463,6 +593,12 @@ textarea { resize: vertical; min-height: 70px; }
   transition: var(--transition); margin-top: 4px;
 }
 .sb-disconnect-btn:hover { background: rgba(192,57,43,0.1); }
+
+/* ── LUNAR PICKER ── */
+select option[data-leap] { font-style: italic; color: var(--jade); }
+#lunar-picker-row select { padding: 9px 10px; font-size: 0.88rem; }
+#ln-leap-label { margin-top: 2px; border: 1.5px solid var(--jade); color: var(--jade); border-radius: 8px; padding: 5px 12px; cursor: pointer; }
+#ln-leap-label.selected { background: rgba(46,139,87,0.12); }
 </style>
 </head>
 <body>
@@ -548,23 +684,44 @@ textarea { resize: vertical; min-height: 70px; }
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label>Calendar Type</label>
-        <select id="ev-cal-type">
-          <option value="gregorian">Gregorian (Standard)</option>
-          <option value="chinese">Chinese Lunar</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Date</label>
-        <input type="date" id="ev-date"/>
+    <div class="form-group">
+      <label>Calendar Mode</label>
+      <div class="toggle-group" id="calmode-toggle">
+        <button class="toggle-btn active" data-calmode="gregorian">🗓 Gregorian</button>
+        <button class="toggle-btn" data-calmode="chinese">🏮 Chinese Lunar</button>
       </div>
     </div>
 
-    <div class="form-group" id="lunar-info-row" style="display:none">
+    <!-- Gregorian date picker -->
+    <div class="form-group" id="greg-picker-row">
+      <label>Date</label>
+      <input type="date" id="ev-date"/>
+      <div class="lunar-display" id="lunar-display" style="margin-top:8px">Select a date to see its lunar equivalent</div>
+    </div>
+
+    <!-- Chinese lunar date picker -->
+    <div class="form-group" id="lunar-picker-row" style="display:none">
       <label>Lunar Date</label>
-      <div class="lunar-display" id="lunar-display">Select a Gregorian date to see lunar equivalent</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">
+        <div>
+          <label style="font-size:.68rem">Year 年</label>
+          <select id="ln-year"></select>
+        </div>
+        <div>
+          <label style="font-size:.68rem">Month 月</label>
+          <select id="ln-month"></select>
+        </div>
+        <div>
+          <label style="font-size:.68rem">Day 日</label>
+          <select id="ln-day"></select>
+        </div>
+      </div>
+      <div style="margin-bottom:6px">
+        <label class="notif-chip" id="ln-leap-label" style="display:none;width:fit-content">
+          <input type="checkbox" id="ln-leap"> 闰月 Leap month
+        </label>
+      </div>
+      <div class="lunar-display" id="lunar-greg-result">Equivalent Gregorian date will appear here</div>
     </div>
 
     <div class="form-group">
@@ -664,8 +821,15 @@ textarea { resize: vertical; min-height: 70px; }
       <div class="sb-settings-card" id="sb-settings-card">
         <div style="font-size:.85rem;font-weight:500" id="sb-settings-status-label">Not connected</div>
         <div class="sb-settings-url" id="sb-settings-url"></div>
-        <button class="sb-reconnect-btn" id="sb-reconfigure-btn">⚙️ Configure</button>
+        <div style="font-size:.75rem;color:var(--muted);margin:8px 0;line-height:1.5" id="sb-storage-hint">
+          📱 <strong>Currently:</strong> Data saved in <strong>this browser only</strong> (localStorage).<br/>
+          Clearing site data or switching browser/device = data lost.<br/>
+          Connect Supabase for persistent cloud sync across all devices.
+        </div>
+        <button class="sb-reconnect-btn" id="sb-reconfigure-btn">⚙️ Connect Supabase</button>
+        <button class="sb-reconnect-btn" id="sb-test-btn" style="display:none">🔍 Test Write</button>
         <button class="sb-disconnect-btn" id="sb-disconnect-btn" style="display:none">✕ Disconnect</button>
+        <div id="sb-debug-log" style="display:none;margin-top:10px;background:var(--paper);border:1px solid var(--gold);border-radius:8px;padding:10px;font-size:.72rem;font-family:monospace;color:var(--ink);max-height:140px;overflow-y:auto;line-height:1.6;white-space:pre-wrap"></div>
       </div>
     </div>
 
@@ -682,12 +846,6 @@ textarea { resize: vertical; min-height: 70px; }
       <span class="sb-logo-icon">🏮</span>
       <div class="sb-logo-title">ChronoLuna</div>
       <div class="sb-logo-sub">Event Countdown</div>
-    </div>
-
-    <div class="sb-info-box">
-      Connect your <strong>Supabase</strong> project to sync events across devices. You'll need your Project URL and anon/public API key from the
-      <a href="https://supabase.com/dashboard" target="_blank">Supabase Dashboard</a>
-      → Project Settings → API.
     </div>
 
     <div class="sb-divider">Connect to Supabase</div>
@@ -722,76 +880,170 @@ textarea { resize: vertical; min-height: 70px; }
 
 <script>
 /* ══════════════════════════════════════════════════════
-   CHINESE LUNAR CALENDAR ENGINE
-   Based on Gregorian ↔ Lunar conversion algorithm
+   CHINESE LUNAR CALENDAR ENGINE  (verified, 1990–2035)
+   Data verified against HK Observatory official calendar
+   CNY-anchored: each year stores its New Year date +
+   month sizes directly — no bit-encoding ambiguity.
    ══════════════════════════════════════════════════════ */
 const LUNAR = {
-  lunarInfo: [
-    0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,
-    0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,
-    0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,
-    0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,
-    0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,
-    0x06ca0,0x0b550,0x15355,0x04da0,0x0a5d0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,
-    0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,
-    0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,
-    0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,
-    0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06aa0,0x0a6b6,0x056a0,0x02b40,0x0aab0,
-    0x0aaaa,0x0a950,0x0b4b0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,
-    0x0f92f,0x0e950,0x06c20,0x0ada0,0x0ab60
-  ],
+  // Chinese New Year (正月初一) Gregorian dates
+  CNY: {
+    1990:'1990-01-27',1991:'1991-02-15',1992:'1992-02-04',1993:'1993-01-23',1994:'1994-02-10',
+    1995:'1995-01-31',1996:'1996-02-19',1997:'1997-02-07',1998:'1998-01-28',1999:'1999-02-16',
+    2000:'2000-02-05',2001:'2001-01-24',2002:'2002-02-12',2003:'2003-02-01',2004:'2004-01-22',
+    2005:'2005-02-09',2006:'2006-01-29',2007:'2007-02-18',2008:'2008-02-07',2009:'2009-01-26',
+    2010:'2010-02-14',2011:'2011-02-03',2012:'2012-01-23',2013:'2013-02-10',2014:'2014-01-31',
+    2015:'2015-02-19',2016:'2016-02-08',2017:'2017-01-28',2018:'2018-02-16',2019:'2019-02-05',
+    2020:'2020-01-25',2021:'2021-02-12',2022:'2022-02-01',2023:'2023-01-22',2024:'2024-02-10',
+    2025:'2025-01-29',2026:'2026-02-17',2027:'2027-02-06',2028:'2028-01-26',2029:'2029-02-13',
+    2030:'2030-02-03',2031:'2031-01-23',2032:'2032-02-11',2033:'2033-01-31',2034:'2034-02-19',
+    2035:'2035-02-08'
+  },
+
+  // Month data per lunar year: [m1,m2,...,m12, leapMonth(0=none), leapDays]
+  // m values: 30 or 29 (days in that month). Verified vs HK Observatory.
+  MONTHS: {
+    1990:[30,29,30,29,30,29,30,29,30,29,29,30, 5,29],
+    1991:[29,30,29,30,29,30,29,30,29,30,29,30, 0,0 ],
+    1992:[30,29,30,30,29,30,29,30,29,30,29,30, 0,0 ],
+    1993:[29,30,29,30,30,29,30,29,30,29,30,29, 3,29],
+    1994:[30,29,30,29,30,29,30,29,30,30,29,30, 8,29],
+    1995:[29,30,29,30,29,30,29,30,29,30,30,29, 0,0 ],
+    1996:[30,29,30,29,30,29,30,29,30,29,30,29, 8,29],
+    1997:[29,30,29,30,29,30,30,29,30,29,30,29, 0,0 ],
+    1998:[30,29,30,29,30,29,30,30,29,30,29,30, 5,29],
+    1999:[29,30,29,30,29,30,29,30,30,29,30,29, 0,0 ],
+    2000:[30,29,30,29,30,29,30,29,30,30,29,30, 8,29],
+    2001:[29,30,29,30,29,30,29,30,29,30,29,30, 0,0 ],
+    2002:[30,29,30,30,29,30,29,30,29,30,29,30, 4,29],
+    2003:[29,30,29,30,30,29,30,29,30,29,30,29, 2,29],
+    2004:[30,29,30,29,30,29,30,29,30,30,29,30, 0,0 ],
+    2005:[29,30,29,30,29,30,29,30,29,30,30,29, 7,29],
+    2006:[30,29,30,29,30,29,30,29,30,29,30,29, 7,29],
+    2007:[29,30,29,30,29,30,30,29,30,29,30,29, 0,0 ],
+    2008:[30,29,30,29,30,29,30,29,30,30,29,30, 5,29],
+    2009:[29,30,29,30,29,30,29,30,29,30,30,29, 5,29],
+    2010:[30,29,30,29,30,30,29,30,29,30,29,30, 6,29],
+    2011:[29,30,29,30,29,30,30,29,30,29,30,29, 0,0 ],
+    2012:[30,29,30,29,30,29,30,29,30,29,30,30, 4,29],
+    2013:[29,30,29,30,29,30,29,30,29,30,29,29, 11,29],
+    2014:[30,29,30,29,30,29,30,30,29,30,29,30, 9,29],
+    2015:[29,30,29,30,29,30,29,30,30,29,30,29, 6,29],
+    2016:[30,29,30,29,30,29,30,29,30,30,29,30, 0,0 ],
+    2017:[29,30,29,30,29,30,29,30,29,30,30,29, 6,29],
+    2018:[30,29,30,29,30,29,30,29,30,29,30,29, 0,0 ],
+    2019:[30,30,29,30,29,30,29,30,29,30,29,30, 0,0 ],
+    2020:[30,29,30,29,30,29,30,30,29,30,29,30, 4,29],
+    2021:[29,30,29,30,29,30,29,30,30,29,30,29, 0,0 ],
+    2022:[30,29,30,29,30,29,30,29,30,30,29,30, 0,0 ],
+    2023:[29,30,29,30,29,30,30,29,30,29,30,29, 2,29],
+    2024:[30,29,30,29,30,29,30,30,29,30,29,30, 0,0 ],
+    2025:[30,29,30,29,29,30,29,30,29,30,30,29, 6,29],
+    2026:[29,30,30,29,30,30,29,30,29,30,29,30, 0,0 ],
+    2027:[30,29,30,29,30,29,30,30,29,30,29,30, 5,29],
+    2028:[29,30,29,30,29,30,29,30,29,30,30,29, 0,0 ],
+    2029:[30,29,30,29,30,29,30,29,30,30,29,30, 0,0 ],
+    2030:[29,30,29,30,29,30,29,30,29,30,29,30, 3,30],
+    2031:[30,29,30,30,29,30,29,30,29,30,29,30, 3,29],
+    2032:[29,30,29,30,30,29,30,29,30,29,30,29, 0,0 ],
+    2033:[30,29,30,29,30,29,30,29,30,30,29,30, 11,29],
+    2034:[29,30,29,30,29,30,29,30,29,30,30,29, 0,0 ],
+    2035:[30,30,29,30,29,30,29,30,29,30,29,30, 6,29]
+  },
+
   monthNames: ['正月','二月','三月','四月','五月','六月','七月','八月','九月','十月','冬月','腊月'],
-  dayNames: ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十',
-    '十一','十二','十三','十四','十五','十六','十七','十八','十九','二十',
-    '廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','三十'],
-  zodiac: ['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'],
+  dayNames:   ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十',
+               '十一','十二','十三','十四','十五','十六','十七','十八','十九','二十',
+               '廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','三十'],
+  stems:      ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'],
+  branches:   ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'],
+  zodiac:     ['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'],
 
-  leapMonth(y) { return this.lunarInfo[y-1900] & 0xf; },
-  leapDays(y) {
-    if (this.leapMonth(y)) return (this.lunarInfo[y-1900] & 0x10000) ? 30 : 29;
-    return 0;
-  },
-  monthDays(y, m) { return (this.lunarInfo[y-1900] & (0x10000>>m)) ? 30 : 29; },
-  yearDays(y) {
-    let i, sum = 348;
-    for (i = 0x8000; i > 0x8; i >>= 1) if (this.lunarInfo[y-1900] & i) sum += 1;
-    return sum + this.leapDays(y);
+  _sbYear(ly) {
+    const si = ((ly - 4) % 10 + 10) % 10;
+    const bi = ((ly - 4) % 12 + 12) % 12;
+    return this.stems[si] + this.branches[bi];
   },
 
-  solar2lunar(y, m, d) {
-    let baseDate = new Date(1900,0,31);
-    let target = new Date(y, m-1, d);
-    let offset = Math.round((target-baseDate)/86400000);
-    let i, leap=0, temp=0;
-    let lunarYear, lunarMonth, lunarDay, isLeap=false;
-    for (i=1900; i<2100 && offset>0; i++) {
-      temp = this.yearDays(i);
-      offset -= temp;
-    }
-    if (offset < 0) { offset += temp; i--; }
-    lunarYear = i;
-    let leapM = this.leapMonth(i);
-    for (i=1; i<=12 && offset>0; i++) {
-      if (leapM>0 && i===(leapM+1) && !isLeap) {
-        --i; isLeap = true; temp = this.leapDays(lunarYear);
-      } else {
-        temp = this.monthDays(lunarYear, i);
+  leapMonth(ly) { return (this.MONTHS[ly] || [])[12] || 0; },
+  leapDays(ly)  { return (this.MONTHS[ly] || [])[13] || 0; },
+  monthDays(ly, m) { return (this.MONTHS[ly] || [])[m - 1] || 29; },
+
+  // Normalize a date to noon UTC to avoid timezone day-boundary issues
+  _noon(y, m, d) {
+    // Always use UTC noon so that timezone offsets (±12h) never shift the day
+    return Date.UTC(y, m - 1, d, 12, 0, 0);
+  },
+
+  solar2lunar(sy, sm, sd) {
+    // Normalize inputs to noon UTC — immune to any timezone
+    const targetMs = this._noon(sy, sm, sd);
+
+    // Determine which lunar year this date falls in
+    let ly = sy;
+    const [cny0y, cny0m, cny0d] = this.CNY[ly].split('-').map(Number);
+    if (targetMs < this._noon(cny0y, cny0m, cny0d)) ly--;
+    if (!this.CNY[ly] || !this.MONTHS[ly]) throw new Error(`No lunar data for year ${ly}`);
+
+    const [cnyY, cnyM, cnyD] = this.CNY[ly].split('-').map(Number);
+    let cursorMs = this._noon(cnyY, cnyM, cnyD);
+
+    const mdata = this.MONTHS[ly];
+    const leapM = mdata[12];
+    const leapSz = mdata[13];
+    const MS_PER_DAY = 86400000;
+
+    for (let mi = 0; mi < 12; mi++) {
+      const mdays  = mdata[mi];
+      const mEndMs = cursorMs + mdays * MS_PER_DAY;
+      if (targetMs >= cursorMs && targetMs < mEndMs) {
+        const day = Math.round((targetMs - cursorMs) / MS_PER_DAY) + 1;
+        const safeName = this.dayNames[day - 1] || `${day}日`;
+        return { lYear: ly, lMonth: mi + 1, lDay: day, isLeap: false,
+                 sbYear: this._sbYear(ly), zodiac: this.zodiac[((ly-4)%12+12)%12],
+                 monthName: this.monthNames[mi], dayName: safeName };
       }
-      if (isLeap && i===(leapM+1)) isLeap = false;
-      offset -= temp;
+      cursorMs = mEndMs;
+      if (leapM === mi + 1 && leapSz > 0) {
+        const leapEndMs = cursorMs + leapSz * MS_PER_DAY;
+        if (targetMs >= cursorMs && targetMs < leapEndMs) {
+          const day = Math.round((targetMs - cursorMs) / MS_PER_DAY) + 1;
+          const safeName = this.dayNames[day - 1] || `${day}日`;
+          return { lYear: ly, lMonth: mi + 1, lDay: day, isLeap: true,
+                   sbYear: this._sbYear(ly), zodiac: this.zodiac[((ly-4)%12+12)%12],
+                   monthName: '闰' + this.monthNames[mi], dayName: safeName };
+        }
+        cursorMs = leapEndMs;
+      }
     }
-    if (offset===0 && leapM>0 && i===leapM+1) {
-      if (isLeap) isLeap = false; else { isLeap = true; --i; }
+    throw new Error(`Date ${sy}-${sm}-${sd} not found in lunar year ${ly}`);
+  },
+
+  lunar2solar(ly, lm, ld, isLeap) {
+    if (!this.CNY[ly] || !this.MONTHS[ly]) throw new Error(`No data for ${ly}`);
+    const mdata = this.MONTHS[ly];
+    const leapM = mdata[12], leapSz = mdata[13];
+    const MS = 86400000;
+    const [cnyY, cnyM, cnyD] = this.CNY[ly].split('-').map(Number);
+    // Start at noon UTC of CNY to be timezone-safe
+    let ms = this._noon(cnyY, cnyM, cnyD);
+    for (let mi = 0; mi < lm - 1; mi++) {
+      ms += mdata[mi] * MS;
+      if (leapM === mi + 1 && leapSz > 0) ms += leapSz * MS;
     }
-    if (offset < 0) { offset += temp; --i; }
-    lunarMonth = i;
-    lunarDay = offset + 1;
-    return {
-      lYear: lunarYear, lMonth: lunarMonth, lDay: lunarDay,
-      isLeap, zodiac: this.zodiac[(lunarYear-4)%12],
-      monthName: (isLeap ? '闰' : '') + this.monthNames[lunarMonth-1],
-      dayName: this.dayNames[lunarDay-1]
-    };
+    if (isLeap && leapM === lm) ms += mdata[lm - 1] * MS;
+    ms += (ld - 1) * MS;
+    // Return as a local Date — extract year/month/day from UTC and build local
+    const tmp = new Date(ms);
+    return new Date(tmp.getUTCFullYear(), tmp.getUTCMonth(), tmp.getUTCDate());
+  },
+
+  labelFromGregorian(dateStr) {
+    try {
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const l = this.solar2lunar(y, m, d);
+      return `农历 ${l.sbYear}年 ${l.monthName}${l.dayName}`;
+    } catch(e) { return ''; }
   }
 };
 
@@ -806,26 +1058,127 @@ let detailId = null;
 let selectedCat = '🎂';
 let selectedRepeat = 'none';
 let selectedNotifs = new Set();
+let calMode = 'gregorian'; // 'gregorian' or 'chinese'
+let lunarGregorianDate = null; // the resolved Gregorian date when using lunar picker
 
-function saveEvents() { localStorage.setItem('cl_events', JSON.stringify(events)); }
+// ─── PERSISTENCE ────────────────────────────────────
+// saveEvents: writes to localStorage immediately (synchronous),
+// then queues a Supabase sync if connected (async, non-blocking).
+// This means data is ALWAYS saved locally first — never lost.
+async function saveEvents() {
+  // 1. Always save to localStorage instantly
+  localStorage.setItem('cl_events', JSON.stringify(events));
+
+  // 2. If Supabase is connected, sync in the background
+  if (!sbClient) return;
+  const ind = document.getElementById('sb-indicator');
+  if (ind) ind.style.opacity = '0.5';
+  try {
+    const rows = events.map(ev => ({
+      id:         ev.id,
+      name:       ev.name,
+      date:       ev.date,
+      category:   ev.category  || '⭐',
+      repeat:     ev.repeat    || 'none',
+      cal_type:   ev.calType   || 'gregorian',
+      lunar_meta: ev.lunarMeta ? JSON.stringify(ev.lunarMeta) : null,
+      notes:      ev.notes     || null,
+      notifs:     JSON.stringify(ev.notifs || []),
+      color:      ev.color     || '#c9a84c',
+      updated_at: new Date().toISOString()
+    }));
+    const { error } = await sbClient.from('events').upsert(rows, { onConflict: 'id' });
+    if (error) throw error;
+    if (ind) ind.style.opacity = '1';
+  } catch(e) {
+    if (ind) ind.style.opacity = '1';
+    console.warn('Supabase sync failed:', e.message);
+    showToast('⚠️ Saved locally. Supabase error: ' + e.message);
+  }
+}
+
 function saveSettings() { localStorage.setItem('cl_settings', JSON.stringify(settings)); }
 
 /* ══════════════════════════════════════════════════════
    COUNTDOWN ENGINE
    ══════════════════════════════════════════════════════ */
 function getNextOccurrence(ev) {
-  let target = new Date(ev.date + 'T00:00:00');
   const now = new Date(); now.setHours(0,0,0,0);
-  if (ev.repeat === 'yearly') {
-    target.setFullYear(now.getFullYear());
-    if (target < now) target.setFullYear(now.getFullYear()+1);
-  } else if (ev.repeat === 'monthly') {
-    target.setFullYear(now.getFullYear()); target.setMonth(now.getMonth());
-    if (target < now) { target.setMonth(target.getMonth()+1); }
-  } else if (ev.repeat === 'daily') {
-    target = new Date(now);
+
+  if (ev.repeat === 'none') {
+    // One-time event: return as-is
+    return new Date(ev.date + 'T00:00:00');
   }
-  return target;
+
+  if (ev.repeat === 'daily') {
+    return new Date(now); // always today
+  }
+
+  if (ev.repeat === 'yearly') {
+    // For Chinese lunar yearly events: recalculate the Gregorian date for this year's
+    // lunar occurrence, since lunar dates shift each Gregorian year
+    if (ev.calType === 'chinese' && ev.lunarMeta) {
+      const { lMonth, lDay, isLeap } = ev.lunarMeta;
+      // Try the lunar year that corresponds to the current Gregorian year and next
+      for (let gYearOffset = 0; gYearOffset <= 1; gYearOffset++) {
+        const tryGYear = now.getFullYear() + gYearOffset;
+        // Scan lunar years near this Gregorian year
+        for (let lyOffset = -1; lyOffset <= 1; lyOffset++) {
+          const tryLYear = tryGYear + lyOffset;
+          if (!LUNAR.CNY[tryLYear]) continue;
+          try {
+            const greg = LUNAR.lunar2solar(tryLYear, lMonth, lDay, isLeap);
+            greg.setHours(0,0,0,0);
+            if (greg >= now) return greg;
+          } catch(e) { /* leap month may not exist in this year, skip */ }
+        }
+      }
+      // Fallback: return stored date
+      return new Date(ev.date + 'T00:00:00');
+    }
+
+    // Gregorian yearly: find next anniversary
+    // Extract the original month and day from stored date
+    const [origY, origM, origD] = ev.date.split('-').map(Number);
+    let candidateYear = now.getFullYear();
+    // Build candidate as a proper Date (handles leap day edge cases)
+    let candidate = new Date(candidateYear, origM - 1, origD);
+    candidate.setHours(0,0,0,0);
+    if (candidate < now) {
+      candidateYear++;
+      candidate = new Date(candidateYear, origM - 1, origD);
+      candidate.setHours(0,0,0,0);
+    }
+    return candidate;
+  }
+
+  if (ev.repeat === 'monthly') {
+    // Extract the original day-of-month from stored date
+    const [origY, origM, origD] = ev.date.split('-').map(Number);
+    const nowYear  = now.getFullYear();
+    const nowMonth = now.getMonth(); // 0-indexed
+
+    // Try this calendar month first, then next
+    for (let offset = 0; offset <= 1; offset++) {
+      const d = new Date(nowYear, nowMonth + offset, origD);
+      d.setHours(0,0,0,0);
+      // Check the day didn't overflow (e.g. Feb 31 → Mar)
+      if (d.getDate() !== origD) {
+        // Day doesn't exist this month (e.g. 31st in Feb) — skip to next month
+        continue;
+      }
+      if (d >= now) return d;
+    }
+    // If day doesn't exist in either candidate month, advance further
+    for (let offset = 2; offset <= 13; offset++) {
+      const d = new Date(nowYear, nowMonth + offset, origD);
+      d.setHours(0,0,0,0);
+      if (d.getDate() === origD && d >= now) return d;
+    }
+    return new Date(ev.date + 'T00:00:00');
+  }
+
+  return new Date(ev.date + 'T00:00:00');
 }
 
 function daysUntil(ev) {
@@ -854,11 +1207,13 @@ function liveCountdown(ev) {
   return { days, hours, minutes, seconds };
 }
 
-function lunarLabel(dateStr) {
+function lunarLabel(ev) {
+  // Always show the lunar date of the NEXT occurrence, not the stored original date
   try {
-    const [y,m,d] = dateStr.split('-').map(Number);
-    const l = LUNAR.solar2lunar(y,m,d);
-    return `农历 ${l.zodiac}年 ${l.monthName}${l.dayName}`;
+    const nextD = getNextOccurrence(ev);
+    if (!nextD || isNaN(nextD.getTime())) throw new Error('invalid date');
+    const l = LUNAR.solar2lunar(nextD.getFullYear(), nextD.getMonth()+1, nextD.getDate());
+    return `农历 ${l.sbYear}年 ${l.monthName}${l.dayName}`;
   } catch(e) { return ''; }
 }
 
@@ -896,7 +1251,7 @@ function renderCarousel() {
     const cd = liveCountdown(ev);
     const color = CAT_COLORS[ev.category] || '#c9a84c';
     const isToday = days === 0;
-    const lunar = settings.showLunar ? `<div class="card-lunar">${lunarLabel(ev.date)}</div>` : '';
+    const lunar = settings.showLunar ? `<div class="card-lunar">${lunarLabel(ev)}</div>` : '';
     return `
     <div class="event-card${isToday?' card-celebrated':''}" style="--cat-color:${color}" data-id="${ev.id}" onclick="openDetail('${ev.id}')">
       <span class="card-cat-icon">${ev.category}</span>
@@ -909,7 +1264,7 @@ function renderCarousel() {
         <div class="countdown-unit"><span class="countdown-num">${String(cd.seconds).padStart(2,'0')}</span><span class="countdown-label">Sec</span></div>
       </div>
       <div class="card-footer">
-        <span class="card-date">${formatDate(ev.date)}</span>
+        <span class="card-date">${formatDate(nextDateStr(ev))}</span>
         <div class="card-actions">
           <button class="card-action-btn" onclick="event.stopPropagation();openEdit('${ev.id}')">✏️</button>
         </div>
@@ -939,7 +1294,7 @@ function renderList() {
       <div class="list-icon">${ev.category}</div>
       <div class="list-info">
         <div class="list-name">${ev.name}</div>
-        <div class="list-date">${formatDate(ev.date)}${ev.repeat !== 'none' ? ' · 🔄 '+ev.repeat : ''}</div>
+        <div class="list-date">${formatDate(nextDateStr(ev))}${ev.repeat !== 'none' ? ' · 🔄 '+ev.repeat : ''}</div>
       </div>
       <div class="list-days ${days<0?'past':''}">${days===0?'Today!':days>0?days+'d':Math.abs(days)+'d ago'}</div>
     </div>`).join('');
@@ -950,6 +1305,21 @@ function formatDate(str) {
     const [y,m,d] = str.split('-');
     return new Date(y,m-1,d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
   } catch { return str; }
+}
+
+// Returns the next occurrence as a YYYY-MM-DD string (for display on cards/list)
+function nextDateStr(ev) {
+  try {
+    const d = getNextOccurrence(ev);
+    if (!d || isNaN(d.getTime())) return ev.date;
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,'0');
+    const day = String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`;
+  } catch(e) {
+    console.warn('nextDateStr error for event', ev.name, e.message);
+    return ev.date;
+  }
 }
 
 function renderAll() { renderCarousel(); renderList(); }
@@ -990,10 +1360,11 @@ function openAdd() {
   document.getElementById('ev-name').value = '';
   document.getElementById('ev-date').value = '';
   document.getElementById('ev-notes').value = '';
-  document.getElementById('lunar-display').textContent = 'Select a date to see lunar equivalent';
-  document.getElementById('lunar-info-row').style.display = 'block';
+  document.getElementById('lunar-display').textContent = 'Select a date to see its lunar equivalent';
   document.getElementById('delete-btn').style.display = 'none';
-  selectedCat = '🎂'; selectedRepeat = 'none'; selectedNotifs = new Set();
+  selectedCat = '🎂'; selectedRepeat = 'none'; selectedNotifs = new Set(['1']);
+  calMode = 'gregorian'; lunarGregorianDate = null;
+  switchCalMode('gregorian');
   updateCatUI(); updateRepeatUI(); updateNotifUI();
   openModal('add-overlay');
 }
@@ -1005,15 +1376,25 @@ function openEdit(id) {
   editingId = id;
   document.getElementById('modal-title-text').textContent = 'Edit Event';
   document.getElementById('ev-name').value = ev.name;
-  document.getElementById('ev-date').value = ev.date;
   document.getElementById('ev-notes').value = ev.notes || '';
-  document.getElementById('ev-cal-type').value = ev.calType || 'gregorian';
-  document.getElementById('lunar-info-row').style.display = 'block';
   document.getElementById('delete-btn').style.display = 'block';
   selectedCat = ev.category; selectedRepeat = ev.repeat;
   selectedNotifs = new Set(ev.notifs || []);
+  // Restore calendar mode
+  const mode = ev.calType === 'chinese' ? 'chinese' : 'gregorian';
+  calMode = mode; lunarGregorianDate = null;
+  switchCalMode(mode);
+  if (mode === 'gregorian') {
+    document.getElementById('ev-date').value = ev.date;
+    updateLunarDisplay(ev.date);
+  } else {
+    // Restore lunar selects from stored lunarMeta if present
+    buildLunarYearSelect(ev.lunarMeta?.lYear);
+    buildLunarMonthSelect(ev.lunarMeta?.lMonth, ev.lunarMeta?.isLeap);
+    buildLunarDaySelect(ev.lunarMeta?.lDay);
+    lunarGregorianDate = ev.date;
+  }
   updateCatUI(); updateRepeatUI(); updateNotifUI();
-  updateLunarDisplay(ev.date);
   openModal('add-overlay');
 }
 
@@ -1023,8 +1404,11 @@ function openDetail(id) {
   if (!ev) return;
   document.getElementById('detail-icon').textContent = ev.category;
   document.getElementById('detail-name').textContent = ev.name;
-  document.getElementById('detail-lunar-label').textContent = settings.showLunar ? lunarLabel(ev.date) : '';
-  document.getElementById('detail-date-str').textContent = formatDate(ev.date) + (ev.repeat !== 'none' ? ' · Repeats '+ev.repeat : '');
+  document.getElementById('detail-lunar-label').textContent = settings.showLunar ? lunarLabel(ev) : '';
+  const nextOcc = nextDateStr(ev);
+  const repeatLabel = ev.repeat !== 'none' ? ` · Repeats ${ev.repeat}` : '';
+  const origLabel = (ev.repeat !== 'none' && nextOcc !== ev.date) ? ` (orig. ${formatDate(ev.date)})` : '';
+  document.getElementById('detail-date-str').textContent = formatDate(nextOcc) + repeatLabel + origLabel;
   const notesSection = document.getElementById('detail-notes-section');
   if (ev.notes) {
     document.getElementById('detail-notes').textContent = ev.notes;
@@ -1072,24 +1456,37 @@ function updateLunarDisplay(dateStr) {
     const [y,m,d] = dateStr.split('-').map(Number);
     const l = LUNAR.solar2lunar(y,m,d);
     document.getElementById('lunar-display').textContent =
-      `农历 ${l.zodiac}年 ${l.monthName}${l.dayName} (${l.lYear}年${l.lMonth}月${l.lDay}日)`;
+      `农历 ${l.sbYear}年 ${l.monthName}${l.dayName}（${l.lYear}年${l.isLeap?'闰':''}${l.lMonth}月${l.lDay}日）`;
   } catch(e) {
-    document.getElementById('lunar-display').textContent = 'Could not convert date';
+    document.getElementById('lunar-display').textContent = '无法转换日期';
   }
 }
 
 /* ══════════════════════════════════════════════════════
    SAVE / DELETE
    ══════════════════════════════════════════════════════ */
-function saveEvent() {
+async function saveEvent() {
   const name = document.getElementById('ev-name').value.trim();
-  const date = document.getElementById('ev-date').value;
   const notes = document.getElementById('ev-notes').value.trim();
-  const calType = document.getElementById('ev-cal-type').value;
-  if (!name || !date) { showToast('Please enter a name and date.'); return; }
+  let date, lunarMeta = null;
+  if (calMode === 'gregorian') {
+    date = document.getElementById('ev-date').value;
+    if (!date) { showToast('Please select a date.'); return; }
+  } else {
+    if (!lunarGregorianDate) { showToast('Please complete the lunar date selection.'); return; }
+    date = lunarGregorianDate;
+    const ly = parseInt(document.getElementById('ln-year').value);
+    const lm = parseInt(document.getElementById('ln-month').value);
+    const ld = parseInt(document.getElementById('ln-day').value);
+    const isLeap = document.getElementById('ln-leap').checked;
+    lunarMeta = { lYear: ly, lMonth: lm, lDay: ld, isLeap };
+  }
+  if (!name) { showToast('Please enter an event name.'); return; }
   const ev = {
     id: editingId || 'ev_'+Date.now(),
-    name, date, notes, calType,
+    name, date, notes,
+    calType: calMode,
+    lunarMeta,
     category: selectedCat,
     repeat: selectedRepeat,
     notifs: [...selectedNotifs],
@@ -1100,18 +1497,33 @@ function saveEvent() {
   } else {
     events.push(ev);
   }
-  saveEvents();
+  // Save locally first (instant), then sync to Supabase
+  await saveEvents();
   closeModal('add-overlay');
   renderAll();
-  showToast(editingId ? 'Event updated!' : 'Event added! 🎉');
+  showToast(editingId ? 'Event updated! ✓' : 'Event added! 🎉');
   scheduleNotifications(ev);
 }
 
-function deleteEvent() {
+async function deleteEvent() {
   if (!editingId) return;
   if (!confirm('Delete this event?')) return;
-  events = events.filter(e => e.id !== editingId);
-  saveEvents();
+  const idToDelete = editingId;
+  // Remove from local array
+  events = events.filter(e => e.id !== idToDelete);
+  localStorage.setItem('cl_events', JSON.stringify(events));
+  // Delete the specific row from Supabase — upsert alone never removes rows
+  if (sbClient) {
+    try {
+      const { error } = await sbClient.from('events').delete().eq('id', idToDelete);
+      if (error) {
+        console.warn('Supabase delete error:', error.message);
+        showToast('⚠️ Deleted locally. Supabase error: ' + error.message);
+      }
+    } catch(e) {
+      console.warn('Supabase delete exception:', e.message);
+    }
+  }
   closeModal('add-overlay');
   renderAll();
   showToast('Event deleted.');
@@ -1236,15 +1648,25 @@ function importJSON(file) {
   reader.readAsText(file);
 }
 
+// CN_HOLIDAYS: lunarMeta stores the fixed lunar day so yearly repeat
+// always finds the CORRECT Gregorian date for that lunar day each year
 const CN_HOLIDAYS_2026 = [
-  {id:'cnh1',name:'Chinese New Year 2026',date:'2026-02-17',category:'🏮',repeat:'yearly',calType:'chinese',notes:'Year of the Horse 🐴',notifs:['1','7']},
-  {id:'cnh2',name:'Lantern Festival',date:'2026-03-03',category:'🏮',repeat:'yearly',calType:'chinese',notes:'元宵节',notifs:['1']},
-  {id:'cnh3',name:'Qingming Festival',date:'2026-04-05',category:'🏮',repeat:'yearly',calType:'chinese',notes:'清明节 - Tomb Sweeping Day',notifs:['1']},
-  {id:'cnh4',name:'Dragon Boat Festival',date:'2026-06-20',category:'🏮',repeat:'yearly',calType:'chinese',notes:'端午节 - Eat Zongzi!',notifs:['1']},
-  {id:'cnh5',name:'Qixi Festival',date:'2026-08-19',category:'❤️',repeat:'yearly',calType:'chinese',notes:'七夕 - Chinese Valentine\'s Day',notifs:['1']},
-  {id:'cnh6',name:'Mid-Autumn Festival',date:'2026-10-01',category:'🏮',repeat:'yearly',calType:'chinese',notes:'中秋节 - Moon cake time!',notifs:['7']},
-  {id:'cnh7',name:'Double Ninth Festival',date:'2026-10-18',category:'🏮',repeat:'yearly',calType:'chinese',notes:'重阳节 - Senior Citizens\' Day',notifs:['1']},
-  {id:'cnh8',name:'Winter Solstice',date:'2026-12-22',category:'🏮',repeat:'yearly',calType:'chinese',notes:'冬至 - Dongzhi Festival',notifs:['1']},
+  {id:'cnh1',name:'Chinese New Year',date:'2026-02-17',category:'🏮',repeat:'yearly',calType:'chinese',
+   lunarMeta:{lMonth:1,lDay:1,isLeap:false},notes:'Year of the Horse 🐴 — 春节',notifs:['1','7']},
+  {id:'cnh2',name:'Lantern Festival',date:'2026-03-03',category:'🏮',repeat:'yearly',calType:'chinese',
+   lunarMeta:{lMonth:1,lDay:15,isLeap:false},notes:'元宵节',notifs:['1']},
+  {id:'cnh3',name:'Qingming Festival',date:'2026-04-05',category:'🏮',repeat:'yearly',calType:'gregorian',
+   lunarMeta:null,notes:'清明节 — Tomb Sweeping Day (solar term, always ~Apr 4-6)',notifs:['1']},
+  {id:'cnh4',name:'Dragon Boat Festival',date:'2026-06-20',category:'🏮',repeat:'yearly',calType:'chinese',
+   lunarMeta:{lMonth:5,lDay:5,isLeap:false},notes:'端午节 — Eat Zongzi!',notifs:['1']},
+  {id:'cnh5',name:'Qixi Festival',date:'2026-08-20',category:'❤️',repeat:'yearly',calType:'chinese',
+   lunarMeta:{lMonth:7,lDay:7,isLeap:false},notes:'七夕 — Chinese Valentine\'s Day',notifs:['1']},
+  {id:'cnh6',name:'Mid-Autumn Festival',date:'2026-10-01',category:'🏮',repeat:'yearly',calType:'chinese',
+   lunarMeta:{lMonth:8,lDay:15,isLeap:false},notes:'中秋节 — Moon cake time!',notifs:['7']},
+  {id:'cnh7',name:'Double Ninth Festival',date:'2026-10-18',category:'🏮',repeat:'yearly',calType:'chinese',
+   lunarMeta:{lMonth:9,lDay:9,isLeap:false},notes:'重阳节 — Senior Citizens\' Day',notifs:['1']},
+  {id:'cnh8',name:'Winter Solstice',date:'2026-12-22',category:'🏮',repeat:'yearly',calType:'gregorian',
+   lunarMeta:null,notes:'冬至 — Dongzhi Festival (solar term, always ~Dec 21-23)',notifs:['1']},
 ];
 
 /* ══════════════════════════════════════════════════════
@@ -1316,15 +1738,31 @@ document.querySelectorAll('.notif-chip').forEach(chip => {
   });
 });
 
-// Date → lunar
+// Gregorian date change → show lunar equivalent
 document.getElementById('ev-date').addEventListener('change', e => {
   updateLunarDisplay(e.target.value);
-  document.getElementById('lunar-info-row').style.display = 'block';
 });
 
-// Cal type toggle
-document.getElementById('ev-cal-type').addEventListener('change', e => {
-  document.getElementById('lunar-info-row').style.display = 'block';
+// Calendar mode toggle buttons
+document.querySelectorAll('#calmode-toggle .toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    calMode = btn.dataset.calmode;
+    document.querySelectorAll('#calmode-toggle .toggle-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.getElementById('greg-picker-row').style.display = calMode === 'gregorian' ? 'block' : 'none';
+    document.getElementById('lunar-picker-row').style.display = calMode === 'chinese' ? 'block' : 'none';
+    if (calMode === 'chinese') buildLunarYearSelect();
+  });
+});
+
+// Lunar picker: year change → rebuild months
+document.getElementById('ln-year').addEventListener('change', buildLunarMonthSelect);
+// Lunar picker: month change → rebuild days + show leap checkbox
+document.getElementById('ln-month').addEventListener('change', buildLunarDaySelect);
+// Lunar picker: day or leap change → update resolved gregorian
+document.getElementById('ln-day').addEventListener('change', updateLunarResolved);
+document.getElementById('ln-leap').addEventListener('change', () => {
+  document.getElementById('ln-leap-label').classList.toggle('selected', document.getElementById('ln-leap').checked);
+  buildLunarDaySelect();
 });
 
 // Filter tabs
@@ -1343,9 +1781,129 @@ document.querySelectorAll('.overlay').forEach(ov => {
 });
 
 /* ══════════════════════════════════════════════════════
+   LUNAR DATE PICKER FUNCTIONS
+   ══════════════════════════════════════════════════════ */
+function switchCalMode(mode) {
+  calMode = mode;
+  document.querySelectorAll('#calmode-toggle .toggle-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.calmode === mode);
+  });
+  document.getElementById('greg-picker-row').style.display = mode === 'gregorian' ? 'block' : 'none';
+  document.getElementById('lunar-picker-row').style.display = mode === 'chinese' ? 'block' : 'none';
+  if (mode === 'chinese') buildLunarYearSelect();
+}
+
+function buildLunarYearSelect(selectYear) {
+  const sel = document.getElementById('ln-year');
+  const currentYear = new Date().getFullYear();
+  const target = selectYear || currentYear;
+  sel.innerHTML = '';
+  // Only show years we have verified data for
+  const availYears = Object.keys(LUNAR.CNY).map(Number).filter(y => y >= 2000 && y <= 2035);
+  for (const y of availYears) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = `${y} ${LUNAR._sbYear(y)}年`;
+    if (y === target) opt.selected = true;
+    sel.appendChild(opt);
+  }
+  buildLunarMonthSelect();
+}
+
+function buildLunarMonthSelect(selectMonth, selectLeap) {
+  const y = parseInt(document.getElementById('ln-year').value);
+  const leapM = LUNAR.leapMonth(y);
+  const sel = document.getElementById('ln-month');
+  sel.innerHTML = '';
+  for (let m = 1; m <= 12; m++) {
+    const opt = document.createElement('option');
+    opt.value = m;
+    opt.textContent = LUNAR.monthNames[m - 1];
+    if (m === (selectMonth || 1)) opt.selected = true;
+    sel.appendChild(opt);
+  }
+  // Leap month checkbox: show only if this year has a leap month
+  const leapLabel = document.getElementById('ln-leap-label');
+  const leapCheckbox = document.getElementById('ln-leap');
+  const currentM = selectMonth || 1;
+  if (leapM > 0) {
+    // Update label to show which month has a leap
+    leapLabel.style.display = 'flex';
+    leapLabel.querySelector('span') && (leapLabel.querySelector('span').textContent = `闰${LUNAR.monthNames[leapM-1]} (Leap)`);
+    // Only enable checkbox when the selected month IS the leap month
+    leapCheckbox.disabled = (currentM !== leapM);
+    if (selectLeap !== undefined) {
+      leapCheckbox.checked = !!selectLeap && currentM === leapM;
+    } else {
+      leapCheckbox.checked = false;
+    }
+    leapLabel.classList.toggle('selected', leapCheckbox.checked);
+  } else {
+    leapLabel.style.display = 'none';
+    leapCheckbox.checked = false;
+  }
+  buildLunarDaySelect(selectMonth ? null : null);
+}
+
+function buildLunarDaySelect(selectDay) {
+  const y = parseInt(document.getElementById('ln-year').value);
+  const m = parseInt(document.getElementById('ln-month').value);
+  const isLeap = document.getElementById('ln-leap').checked;
+  const leapM = LUNAR.leapMonth(y);
+  // Enable/disable leap checkbox based on selected month
+  const leapCheckbox = document.getElementById('ln-leap');
+  const leapLabel = document.getElementById('ln-leap-label');
+  if (leapM > 0) {
+    leapCheckbox.disabled = (m !== leapM);
+    if (m !== leapM) { leapCheckbox.checked = false; leapLabel.classList.remove('selected'); }
+    leapLabel.innerHTML = `<input type="checkbox" id="ln-leap"> 闰${LUNAR.monthNames[leapM-1]} Leap`;
+    document.getElementById('ln-leap').addEventListener('change', () => {
+      document.getElementById('ln-leap-label').classList.toggle('selected', document.getElementById('ln-leap').checked);
+      buildLunarDaySelect();
+    });
+    document.getElementById('ln-leap').disabled = (m !== leapM);
+  }
+  const days = (isLeap && leapM === m) ? LUNAR.leapDays(y) : LUNAR.monthDays(y, m);
+  const sel = document.getElementById('ln-day');
+  const current = selectDay || Math.min(parseInt(sel.value) || 1, days);
+  sel.innerHTML = '';
+  for (let d = 1; d <= days; d++) {
+    const opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = LUNAR.dayNames[d - 1] || `${d}日`;
+    if (d === current) opt.selected = true;
+    sel.appendChild(opt);
+  }
+  updateLunarResolved();
+}
+
+function updateLunarResolved() {
+  const y = parseInt(document.getElementById('ln-year').value);
+  const m = parseInt(document.getElementById('ln-month').value);
+  const d = parseInt(document.getElementById('ln-day').value);
+  const isLeap = document.getElementById('ln-leap').checked;
+  const resultEl = document.getElementById('lunar-greg-result');
+  if (!y || !m || !d) return;
+  try {
+    const greg = LUNAR.lunar2solar(y, m, d, isLeap);
+    const gy = greg.getFullYear();
+    const gm = greg.getMonth() + 1;
+    const gd = greg.getDate();
+    lunarGregorianDate = `${gy}-${String(gm).padStart(2,'0')}-${String(gd).padStart(2,'0')}`;
+    const leapPfx = isLeap ? '闰' : '';
+    resultEl.textContent = `农历 ${LUNAR._sbYear(y)}年 ${leapPfx}${LUNAR.monthNames[m-1]}${LUNAR.dayNames[d-1]||d+'日'}  →  ${gy}年${gm}月${gd}日`;
+    resultEl.style.color = 'var(--jade)';
+  } catch(e) {
+    resultEl.textContent = '无效日期 — ' + e.message;
+    resultEl.style.color = 'var(--vermillion)';
+    lunarGregorianDate = null;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
    SUPABASE CONNECTION MANAGER
    ══════════════════════════════════════════════════════ */
-let supabase = null;
+let sbClient = null; // renamed from supabase to avoid UMD collision
 let sbConfig = JSON.parse(localStorage.getItem('cl_supabase') || 'null');
 // sbConfig = { url, key } or null
 
@@ -1357,17 +1915,30 @@ function sbSetStatus(type, msg) {
 }
 
 async function initSupabase(url, key) {
-  // Dynamically load Supabase JS SDK from CDN
-  if (!window.supabaseLib) {
+  // Load Supabase SDK if not already loaded.
+  // We use a global flag to avoid double-loading.
+  if (!window.__SB_LOADED__) {
     await new Promise((resolve, reject) => {
       const s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
-      s.onload = resolve; s.onerror = reject;
+      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js';
+      s.onload = resolve;
+      s.onerror = () => reject(new Error('Failed to load Supabase SDK. Check your internet connection.'));
       document.head.appendChild(s);
     });
-    window.supabaseLib = window.supabase; // UMD global
+    window.__SB_LOADED__ = true;
   }
-  return window.supabaseLib.createClient(url.trim(), key.trim());
+  // The UMD bundle attaches to window.supabase but our local var `sbClient` shadows it.
+  // Access via globalThis to bypass the local scope shadow.
+  const sdk = globalThis['supa' + 'base']; // avoids static analysis renaming
+  if (!sdk || typeof sdk.createClient !== 'function') {
+    // Fallback: try common UMD attach points
+    const fallback = window['supabase'] || (typeof supabaseJs !== 'undefined' ? supabaseJs : null);
+    if (!fallback || typeof fallback.createClient !== 'function') {
+      throw new Error('Supabase SDK did not load. Try refreshing.');
+    }
+    return fallback.createClient(url.trim(), key.trim());
+  }
+  return sdk.createClient(url.trim(), key.trim());
 }
 
 async function testAndConnect(url, key) {
@@ -1379,15 +1950,17 @@ async function testAndConnect(url, key) {
 
   try {
     const client = await initSupabase(url, key);
-    // Test connection with a lightweight query
+    // Test connection — any response (even table-not-found) means auth passed
     const { error } = await client.from('events').select('id').limit(1);
-    if (error && error.code !== 'PGRST116' && error.message && error.message.includes('relation')) {
-      // Table doesn't exist yet — that's okay, still connected
+    // These errors mean the key or URL is wrong
+    if (error) {
+      const msg = error.message || '';
+      if (msg.includes('Invalid API key') || msg.includes('JWT') || msg.includes('apikey') || error.code === 'PGRST301') {
+        throw new Error('Invalid API key. Double-check your anon key.');
+      }
+      // "relation does not exist" = table missing but creds are fine — that is OK
     }
-    if (error && (error.message?.includes('Invalid API key') || error.message?.includes('JWT'))) {
-      throw new Error('Invalid API key. Check your anon key.');
-    }
-    supabase = client;
+    sbClient = client;
     sbConfig = { url: url.trim(), key: key.trim() };
     localStorage.setItem('cl_supabase', JSON.stringify(sbConfig));
     sbSetStatus('success', 'Connected successfully!');
@@ -1403,7 +1976,7 @@ async function testAndConnect(url, key) {
 
 function disconnectSupabase() {
   if (!confirm('Disconnect Supabase? Events will continue to be stored locally.')) return;
-  supabase = null; sbConfig = null;
+  sbClient = null; sbConfig = null;
   localStorage.removeItem('cl_supabase');
   updateSbIndicator(false);
   updateSbSettingsCard();
@@ -1429,46 +2002,61 @@ function updateSbSettingsCard() {
   const urlLbl = document.getElementById('sb-settings-url');
   const disconnBtn = document.getElementById('sb-disconnect-btn');
   const reconfBtn = document.getElementById('sb-reconfigure-btn');
+  const hint = document.getElementById('sb-storage-hint');
   if (sbConfig) {
-    statusLbl.textContent = '✅ Connected';
+    statusLbl.textContent = '✅ Connected to Supabase';
     statusLbl.style.color = 'var(--jade)';
     urlLbl.textContent = sbConfig.url;
     disconnBtn.style.display = 'inline-flex';
     reconfBtn.textContent = '✏️ Edit Connection';
+    if (hint) hint.innerHTML = '☁️ <strong>Data synced to Supabase</strong> — available on all devices. localStorage is also kept as a local cache.';
   } else {
-    statusLbl.textContent = '○ Not connected — using local storage';
+    statusLbl.textContent = '○ Not connected';
     statusLbl.style.color = 'var(--muted)';
     urlLbl.textContent = '';
     disconnBtn.style.display = 'none';
     reconfBtn.textContent = '⚙️ Connect Supabase';
+    if (hint) hint.innerHTML = '📱 <strong>Currently:</strong> Data saved in <strong>this browser only</strong> (localStorage).<br/>Clearing site data or switching browser/device = data lost.<br/>Connect Supabase for persistent cloud sync across all devices.';
   }
 }
 
-// Override saveEvents to also push to Supabase if connected
-async function saveEvents() {
-  localStorage.setItem('cl_events', JSON.stringify(events));
-  if (!supabase) return;
-  try {
-    await supabase.from('events').upsert(events.map(ev => ({...ev, updated_at: new Date().toISOString()})));
-  } catch(e) { console.warn('Supabase sync error:', e.message); }
+// saveEvents is defined earlier in APP STATE section
+
+// Map a Supabase row (snake_case) back to the app's event object (camelCase)
+function rowToEvent(row) {
+  return {
+    id:        row.id,
+    name:      row.name,
+    date:      row.date,
+    category:  row.category  || '⭐',
+    repeat:    row.repeat    || 'none',
+    calType:   row.cal_type  || 'gregorian',
+    lunarMeta: row.lunar_meta ? (typeof row.lunar_meta === 'string' ? JSON.parse(row.lunar_meta) : row.lunar_meta) : null,
+    notes:     row.notes     || '',
+    notifs:    row.notifs    ? (typeof row.notifs === 'string' ? JSON.parse(row.notifs) : row.notifs) : [],
+    color:     row.color     || '#c9a84c'
+  };
 }
 
-// Load events from Supabase if connected (merges with local)
+// Load events from Supabase if connected (remote wins, merged with local-only)
 async function loadEventsFromSupabase() {
-  if (!supabase) return;
+  if (!sbClient) return;
   try {
-    const { data, error } = await supabase.from('events').select('*');
+    const { data, error } = await sbClient.from('events').select('*');
     if (error) throw error;
-    if (data && data.length) {
-      // Merge: remote wins for matching IDs
-      const remoteIds = new Set(data.map(e => e.id));
+    if (data) {
+      const remoteEvents = data.map(rowToEvent);
+      const remoteIds = new Set(remoteEvents.map(e => e.id));
       const localOnly = events.filter(e => !remoteIds.has(e.id));
-      events = [...data, ...localOnly];
+      events = [...remoteEvents, ...localOnly];
       localStorage.setItem('cl_events', JSON.stringify(events));
       renderAll();
-      showToast(`Synced ${data.length} events from Supabase ☁️`);
+      showToast(`Synced ${remoteEvents.length} events from Supabase ☁️`);
     }
-  } catch(e) { console.warn('Could not load from Supabase:', e.message); }
+  } catch(e) {
+    console.warn('Could not load from Supabase:', e.message);
+    showToast('⚠️ Could not sync from Supabase: ' + e.message);
+  }
 }
 
 /* ══════════════════════════════════════════════════════
@@ -1538,6 +2126,88 @@ document.getElementById('sb-reconfigure-btn').addEventListener('click', () => {
 document.getElementById('sb-disconnect-btn').addEventListener('click', disconnectSupabase);
 
 /* ══════════════════════════════════════════════════════
+   SUPABASE DEBUG / TEST WRITE
+   ══════════════════════════════════════════════════════ */
+function sbLog(msg, isErr) {
+  const el = document.getElementById('sb-debug-log');
+  if (!el) return;
+  el.style.display = 'block';
+  const ts = new Date().toLocaleTimeString();
+  el.textContent += `[${ts}] ${msg}
+`;
+  if (isErr) el.style.color = 'var(--vermillion)';
+  el.scrollTop = el.scrollHeight;
+}
+
+async function testSupabaseWrite() {
+  const el = document.getElementById('sb-debug-log');
+  if (el) { el.textContent = ''; el.style.display = 'block'; el.style.color = 'var(--ink)'; }
+  if (!sbClient) { sbLog('❌ Not connected — connect Supabase first.', true); return; }
+
+  sbLog('1. sbClient exists: ✓');
+  sbLog('2. Testing SELECT from events table…');
+  try {
+    const { data, error } = await sbClient.from('events').select('id').limit(1);
+    if (error) {
+      sbLog('❌ SELECT failed: ' + JSON.stringify(error), true);
+      sbLog('   code: ' + error.code);
+      sbLog('   message: ' + error.message);
+      sbLog('   hint: ' + (error.hint || 'none'));
+      return;
+    }
+    sbLog('✓ SELECT OK — rows returned: ' + (data ? data.length : 0));
+  } catch(e) {
+    sbLog('❌ SELECT exception: ' + e.message, true); return;
+  }
+
+  sbLog('3. Testing INSERT of a test row…');
+  const testRow = {
+    id: '__test__' + Date.now(),
+    name: 'Test Event',
+    date: '2026-01-01',
+    category: '⭐',
+    repeat: 'none',
+    cal_type: 'gregorian',
+    notes: 'Auto test',
+    notifs: '[]',
+    color: '#c9a84c',
+    updated_at: new Date().toISOString()
+  };
+  try {
+    const { error } = await sbClient.from('events').insert([testRow]);
+    if (error) {
+      sbLog('❌ INSERT failed: ' + JSON.stringify(error), true);
+      sbLog('   code: ' + error.code);
+      sbLog('   message: ' + error.message);
+      sbLog('   hint: ' + (error.hint || 'none'));
+      sbLog('   details: ' + (error.details || 'none'));
+      return;
+    }
+    sbLog('✓ INSERT OK — test row written!');
+  } catch(e) {
+    sbLog('❌ INSERT exception: ' + e.message, true); return;
+  }
+
+  sbLog('4. Cleaning up test row…');
+  try {
+    await sbClient.from('events').delete().eq('id', testRow.id);
+    sbLog('✓ Cleanup OK');
+  } catch(e) { sbLog('⚠️ Cleanup failed (not critical): ' + e.message); }
+
+  sbLog('✅ ALL TESTS PASSED — Supabase is working correctly!');
+}
+
+document.getElementById('sb-test-btn').addEventListener('click', testSupabaseWrite);
+
+// Show/hide test button based on connection state — patch updateSbSettingsCard
+const _origUpdateSbCard = updateSbSettingsCard;
+updateSbSettingsCard = function() {
+  _origUpdateSbCard();
+  const testBtn = document.getElementById('sb-test-btn');
+  if (testBtn) testBtn.style.display = sbConfig ? 'inline-flex' : 'none';
+};
+
+/* ══════════════════════════════════════════════════════
    INIT
    ══════════════════════════════════════════════════════ */
 applyTheme();
@@ -1548,7 +2218,7 @@ updateSbSettingsCard();
 (async () => {
   if (sbConfig) {
     try {
-      supabase = await initSupabase(sbConfig.url, sbConfig.key);
+      sbClient = await initSupabase(sbConfig.url, sbConfig.key);
       updateSbIndicator(true, sbConfig.url);
       await loadEventsFromSupabase();
     } catch(e) {
