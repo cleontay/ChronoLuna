@@ -845,29 +845,6 @@ select option[data-leap] { font-style: italic; color: var(--jade); }
       <div class="sb-logo-sub">Event Countdown</div>
     </div>
 
-    <div class="sb-info-box">
-      <strong>Step 1 — Create your table</strong><br/>
-      In <a href="https://supabase.com/dashboard" target="_blank">Supabase Dashboard</a> → SQL Editor, run:<br/>
-      <div style="position:relative;margin-top:6px">
-        <code id="sb-sql-block" style="font-size:.72rem;display:block;background:rgba(0,0,0,.1);padding:8px;border-radius:6px;white-space:pre;overflow-x:auto;color:inherit">CREATE TABLE IF NOT EXISTS events (
-  id TEXT PRIMARY KEY,
-  name TEXT NOT NULL,
-  date TEXT NOT NULL,
-  category TEXT DEFAULT '⭐',
-  repeat TEXT DEFAULT 'none',
-  cal_type TEXT DEFAULT 'gregorian',
-  lunar_meta TEXT,
-  notes TEXT,
-  notifs TEXT,
-  color TEXT,
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);</code>
-        <button onclick="navigator.clipboard.writeText(document.getElementById('sb-sql-block').textContent).then(()=>this.textContent='Copied!').catch(()=>{}); this.textContent='Copied ✓'; setTimeout(()=>this.textContent='Copy SQL',1500)"
-          style="position:absolute;top:4px;right:4px;padding:3px 8px;font-size:.68rem;border:1px solid var(--gold);border-radius:4px;background:var(--paper);cursor:pointer;color:var(--ink)">Copy SQL</button>
-      </div>
-      <strong>Step 2</strong> — Get your URL &amp; anon key: Dashboard → Project Settings → API
-    </div>
-
     <div class="sb-divider">Connect to Supabase</div>
 
     <div class="sb-input-wrap">
